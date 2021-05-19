@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:notes/theme/theme.dart';
 
 class EditableNote extends StatelessWidget {
 
-  EditableNote({Key key}) : super(key: key);
+  //String? noteTitle;
+
+  EditableNote({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
+      //height: 500,
         margin: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
         width: double.infinity,
         decoration: BoxDecoration(
@@ -24,12 +26,13 @@ class EditableNote extends StatelessWidget {
         ),
         padding: EdgeInsets.all(15),
         child:Column(
+          mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(
-              height: 10,
-            ),
+            // SizedBox(
+            //   height: 10,
+            // ),
             TextField(
               //maxLines: 50,
               cursorColor: NTheme.mainColor,
@@ -39,26 +42,24 @@ class EditableNote extends StatelessWidget {
                   borderSide: BorderSide.none
                 )
               ),
-              style: NTheme.noteTitleFont
+              style: NTheme.noteTitleFont,
             ),
             Divider(
               thickness: 1,
               color: Colors.black12,
               endIndent: 60,
             ),
-            Text(
-                'blank',
+            TextField(
+              cursorColor: NTheme.mainColor,
               style: NTheme.noteBodyFont,
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            Text(
-                '20/10/21',
-                style: GoogleFonts.poppins(
-                    fontSize: 12,
-                    color: Color(0xFF383838)
+              keyboardType: TextInputType.multiline,
+              maxLines: null,
+              decoration: InputDecoration(
+                hintText: 'Type something ...',
+                border: OutlineInputBorder(
+                  borderSide: BorderSide.none,
                 )
+              ),
             ),
           ],
         ),

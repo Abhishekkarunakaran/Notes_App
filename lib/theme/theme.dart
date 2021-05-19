@@ -16,11 +16,11 @@ class NTheme {
   );
 
   static TextStyle noteTitleFont = GoogleFonts.singleDay(
-    fontSize: 35
+    fontSize: 27
   );
 
   static TextStyle noteBodyFont = GoogleFonts.singleDay(
-    fontSize: 20
+    fontSize: 23
   );
 
 }

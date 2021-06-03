@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:notes/theme/theme.dart';
+import 'package:notes/app/theme/theme.dart';
 
 class EditableNote extends StatelessWidget {
 

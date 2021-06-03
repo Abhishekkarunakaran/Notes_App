@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:notes/theme/theme.dart';
-import 'package:notes/widgets/editable_notecard.dart';
+import 'package:notes/app/theme/theme.dart';
+import 'package:notes/app/views/widgets/editable_notecard.dart';
 
 
 // ignore: must_be_immutable

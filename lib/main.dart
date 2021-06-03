@@ -1,33 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:notes/theme/theme.dart';
-import 'package:notes/views/home_page.dart';
-import 'package:notes/views/note_page.dart';
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'app/app.dart';
+import 'app/model/note_model.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Hive.initFlutter();
+
+  Hive.registerAdapter(NoteAdapter());
+  await Hive.openBox<Note>('notes');
   runApp(MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
-  @override
-  Widget build(BuildContext context) {
-    return GetMaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        accentColor: NTheme.buttonColor,
-        canvasColor: NTheme.mainColor,
-        focusColor: NTheme.mainColor,
-        appBarTheme: AppBarTheme(
-          color: NTheme.mainColor,
-        ),
-      ),
-      initialRoute:'/',
-      getPages: [
-        GetPage(name: '/', page: () => Home()),
-        GetPage(name: '/newPage', page: () => NotePage()),
-        GetPage(name: '/editPage', page: () => NotePage(isExiting: true))
-      ],
-    );
-  }
+  
 }

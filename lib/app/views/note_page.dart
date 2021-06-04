@@ -1,82 +1,100 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:notes/app/controller/note_controller.dart';
+import 'package:notes/app/model/note_model.dart';
 import 'package:notes/app/theme/theme.dart';
 import 'package:notes/app/views/widgets/editable_notecard.dart';
 
-
 // ignore: must_be_immutable
 class NotePage extends StatelessWidget {
-  
+  int? index;
   bool isExiting;
-  NotePage({Key? key,this.isExiting:false}) : super(key: key);
+  NotePage({Key? key, this.isExiting: false,this.index}) : super(key: key);
 
+  EditableNote editableNote = EditableNote();
   @override
   Widget build(BuildContext context) {
+    Color? color;
+    Note? note;
+    NoteController noteController = NoteController();
+    if (isExiting) note = noteController.getNote(index!);
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
         title: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Expanded(
-                child: SizedBox()
-            ),
-            isExiting ?
-              InkWell(
-                splashColor: NTheme.buttonColor,
-                onTap: (){
-                  //TODO: Funtionality to be added
-                },
-                child: Container(
-                  padding: EdgeInsets.symmetric(horizontal: 10),
-                  child: Text('DELETE',
-                    style: GoogleFonts.poppins(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w500,
-                        color: NTheme.noteColor
-                    ),),
-                ),
-              ) :
-            SizedBox(
-              height: 20,
-            ),
+            Expanded(child: SizedBox()),
+            isExiting
+                ? InkWell(
+                    splashColor: NTheme.buttonColor,
+                    onTap: () {
+                      //TODO: Funtionality to be added
+                      noteController.delNote(index!);
+                    },
+                    child: Container(
+                      padding: EdgeInsets.symmetric(horizontal: 10),
+                      child: Text(
+                        'DELETE',
+                        style: GoogleFonts.poppins(
+                            fontSize: 18,
+                            fontWeight: FontWeight.w500,
+                            color: NTheme.noteColor),
+                      ),
+                    ),
+                  )
+                : SizedBox(
+                    height: 20,
+                  ),
             InkWell(
               splashColor: NTheme.buttonColor,
-              onTap: (){
+              onTap: () {
                 //TODO: Funtionality to be added
+                isExiting
+                    ? noteController.addNewNote(
+                        editableNote.titleController.text,
+                        editableNote.bodyController.text,
+                        color)
+                    : noteController.updateNote(
+                        editableNote.titleController.text,
+                        editableNote.bodyController.text,
+                        index!,
+                        color);
               },
               child: Container(
                 padding: EdgeInsets.symmetric(horizontal: 10),
-                child: Text('SAVE',
-                style: GoogleFonts.poppins(
-                  fontSize: 18,
-                  fontWeight: FontWeight.w500,
-                  color: NTheme.noteColor
-                ),),
+                child: Text(
+                  'SAVE',
+                  style: GoogleFonts.poppins(
+                      fontSize: 18,
+                      fontWeight: FontWeight.w500,
+                      color: NTheme.noteColor),
+                ),
               ),
             )
           ],
         ),
       ),
-      body: isExiting?
-      Stack(
-        children: [
-          SingleChildScrollView(
-              child: EditableNote()),
-          Positioned(
-            bottom: 20,
-            right: 40,
-            child: Text('12-12-12',
-            style: GoogleFonts.poppins(
-            fontSize: 15,
-                fontWeight: FontWeight.w500,
-                color: NTheme.mainColor
+      body: isExiting
+          ? Stack(
+              children: [
+                SingleChildScrollView(
+                    child: EditableNote(
+                  index: index,
+                )),
+                Positioned(
+                  bottom: 20,
+                  right: 40,
+                  child: Text(note!.date.toString(),
+                      style: GoogleFonts.poppins(
+                          fontSize: 15,
+                          fontWeight: FontWeight.w500,
+                          color: NTheme.mainColor)),
+                )
+              ],
             )
-            ),
-          )
-        ],
-      )
-      : SingleChildScrollView(child: EditableNote()),
+          : SingleChildScrollView(child: EditableNote()),
     );
   }
 }

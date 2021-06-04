@@ -19,6 +19,7 @@ class NoteCard extends StatelessWidget {
         Get.to(
             NotePage(
               isExiting: true,
+              index: index,
             ),
             transition: Transition.rightToLeftWithFade);
       },

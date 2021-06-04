@@ -9,6 +9,9 @@ import '../theme/theme.dart';
 class NoteController extends GetxController {
   Box<Note> notes = Hive.box('notes');
 
+  // TextEditingController titleController = TextEditingController();
+  // TextEditingController bodyController = TextEditingController();
+
   void addNewNote(String? title, String body, Color? color) {
     final newNote = Note(
       title: title ?? "No title",
@@ -35,7 +38,8 @@ class NoteController extends GetxController {
     notes.deleteAt(index);
   }
 
-  void getNote(int index) {
-    notes.getAt(index);
+  Note? getNote(int index) {
+    var note = notes.getAt(index);
+    return note;
   }
 }

@@ -1,23 +1,34 @@
 import 'package:flutter/material.dart';
 import 'package:notes/app/controller/note_controller.dart';
+import 'package:notes/app/model/note_model.dart';
 import 'package:notes/app/theme/theme.dart';
+import 'package:get/get.dart';
 
 // ignore: must_be_immutable
 class EditableNote extends StatelessWidget {
-  //String? noteTitle;
   int? index;
   EditableNote({Key? key, this.index}) : super(key: key);
 
   TextEditingController titleController = TextEditingController();
   TextEditingController bodyController = TextEditingController();
 
+  final noteController = Get.find<NoteController>();
+  Color cardColor = NTheme.noteColor;
   @override
   Widget build(BuildContext context) {
+    if (index != null) {
+      Note? note = noteController.getNote(index!);
+      titleController.text = note!.title!;
+      bodyController.text = note.body;
+      cardColor = note.color!;
+    }
     return Container(
       //height: 500,
       margin: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
       width: double.infinity,
-      decoration: BoxDecoration(color: NTheme.noteColor, boxShadow: [
+      decoration: BoxDecoration(
+        color: cardColor,
+         boxShadow: [
         BoxShadow(
             color: Color(0xFF282828),
             offset: Offset(5, 5),
@@ -47,6 +58,7 @@ class EditableNote extends StatelessWidget {
             endIndent: 60,
           ),
           TextField(
+            controller: bodyController,
             cursorColor: NTheme.mainColor,
             style: NTheme.noteBodyFont,
             keyboardType: TextInputType.multiline,

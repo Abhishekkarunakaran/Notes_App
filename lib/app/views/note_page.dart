@@ -30,7 +30,6 @@ class NotePage extends StatelessWidget {
                 ? InkWell(
                     splashColor: NTheme.buttonColor,
                     onTap: () {
-                      //TODO: Funtionality to be added
                       noteController.delNote(index!);
                     },
                     child: Container(
@@ -50,7 +49,6 @@ class NotePage extends StatelessWidget {
             InkWell(
               splashColor: NTheme.buttonColor,
               onTap: () {
-                //TODO: Funtionality to be added
                 isExiting
                     ? noteController.addNewNote(
                         editableNote.titleController.text,

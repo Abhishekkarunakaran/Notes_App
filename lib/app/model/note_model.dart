@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:hive/hive.dart';
 
 part 'note_model.g.dart';
@@ -16,12 +14,7 @@ class Note extends HiveObject {
   String? date;
 
   @HiveField(3)
-  Color? color;
+  int? color;
 
-  Note(
-      {
-      this.title,
-      required this.body,
-      this.color,
-      this.date});
+  Note({this.title, required this.body, this.color, this.date});
 }

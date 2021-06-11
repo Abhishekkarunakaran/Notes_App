@@ -3,17 +3,18 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:notes/app/controller/note_controller.dart';
+//import 'package:notes/app/controller/note_controller.dart';
 import 'package:notes/app/model/note_model.dart';
 import 'package:notes/app/theme/theme.dart';
 import 'package:notes/app/views/note_page.dart';
+//import 'package:notes/app/views/note_page.dart';
 import 'package:notes/app/views/widgets/note_card.dart';
 
 // ignore: must_be_immutable
 class Home extends StatelessWidget {
   Home({Key? key}) : super(key: key);
 
-  NoteController noteController = NoteController();
+  //NoteController noteController = NoteController();
 
   // Box<dynamic> notes = Hive.box("notes");
 
@@ -32,7 +33,10 @@ class Home extends StatelessWidget {
               return Center(
                 child: Text(
                   "No notes to display",
-                  style: NTheme.titleFont,
+                  style: TextStyle(
+                    color: NTheme.buttonColor,
+                    fontSize: 30,
+                  ),
                 ),
               );
             else
@@ -55,7 +59,8 @@ class Home extends StatelessWidget {
           size: 40,
         ),
         onPressed: () {
-          Get.to(NotePage(), transition: Transition.rightToLeftWithFade);
+          // Get.toNamed('/newNotePage');
+          Get.to(() => NotePage(),transition: Transition.rightToLeftWithFade);
         },
       ),
     );

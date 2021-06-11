@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:notes/app/controller/note_controller.dart';
 import 'package:notes/app/model/note_model.dart';
@@ -9,16 +10,18 @@ import 'package:notes/app/views/widgets/editable_notecard.dart';
 // ignore: must_be_immutable
 class NotePage extends StatelessWidget {
   int? index;
-  bool isExiting;
-  NotePage({Key? key, this.isExiting: false,this.index}) : super(key: key);
+  bool? isExiting;
+  
+  NotePage({Key? key, this.isExiting: false, this.index,}) : super(key: key);
 
-  EditableNote editableNote = EditableNote();
+  // EditableNote editableNote = EditableNote();
+  
+NoteController noteController = Get.put(NoteController());
   @override
   Widget build(BuildContext context) {
-    Color? color;
+    Color color = NTheme.noteColor;
     Note? note;
-    NoteController noteController = NoteController();
-    if (isExiting) note = noteController.getNote(index!);
+    if (isExiting!) note = noteController.getNote(index!);
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
@@ -26,11 +29,12 @@ class NotePage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Expanded(child: SizedBox()),
-            isExiting
+            isExiting!
                 ? InkWell(
                     splashColor: NTheme.buttonColor,
                     onTap: () {
                       noteController.delNote(index!);
+                      Get.back();
                     },
                     child: Container(
                       padding: EdgeInsets.symmetric(horizontal: 10),
@@ -49,16 +53,13 @@ class NotePage extends StatelessWidget {
             InkWell(
               splashColor: NTheme.buttonColor,
               onTap: () {
-                isExiting
-                    ? noteController.addNewNote(
-                        editableNote.titleController.text,
-                        editableNote.bodyController.text,
-                        color)
-                    : noteController.updateNote(
-                        editableNote.titleController.text,
-                        editableNote.bodyController.text,
+                isExiting!
+                    ? noteController.updateNote(
                         index!,
+                        color)
+                    :noteController.addNewNote(
                         color);
+                Get.back();
               },
               child: Container(
                 padding: EdgeInsets.symmetric(horizontal: 10),
@@ -74,7 +75,7 @@ class NotePage extends StatelessWidget {
           ],
         ),
       ),
-      body: isExiting
+      body: isExiting!
           ? Stack(
               children: [
                 SingleChildScrollView(
@@ -93,6 +94,7 @@ class NotePage extends StatelessWidget {
               ],
             )
           : SingleChildScrollView(child: EditableNote()),
+      //floatingActionButton: ,
     );
   }
 }

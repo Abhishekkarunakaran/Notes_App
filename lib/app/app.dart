@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:notes/app/views/note_page.dart';
+//import 'package:notes/app/views/trial.dart';
 import 'views/home_page.dart';
 import 'theme/theme.dart';
 
@@ -19,6 +21,12 @@ class MyApp extends StatelessWidget {
       ),
       title: 'Notes',
       home: Home(),
+      // initialRoute: '/',
+      // getPages: [
+      //   GetPage(name: '/', page:()=> Home(),transition: Transition.leftToRightWithFade),
+      //   GetPage(name: '/newNotePage', page:()=> NotePage(), transition: Transition.leftToRightWithFade),
+      //   GetPage(name: '/existingNotePage', page:()=> NotePage(isExiting: true,),transition: Transition.leftToRightWithFade)
+      // ],
     );
   }
 }

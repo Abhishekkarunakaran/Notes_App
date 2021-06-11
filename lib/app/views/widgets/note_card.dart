@@ -16,12 +16,13 @@ class NoteCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Get.to(
+        Get.to(()=>
             NotePage(
               isExiting: true,
               index: index,
             ),
             transition: Transition.rightToLeftWithFade);
+        // Get.toNamed('/existingNotePage');
       },
       child: Container(
         margin: EdgeInsets.symmetric(horizontal: 15, vertical: 10),

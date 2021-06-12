@@ -5,7 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:notes/app/controller/note_controller.dart';
 import 'package:notes/app/model/note_model.dart';
 import 'package:notes/app/theme/theme.dart';
-import 'package:notes/app/views/widgets/editable_notecard.dart';
+import 'package:notes/app/widgets/editable_notecard.dart';
 
 // ignore: must_be_immutable
 class NotePage extends StatelessWidget {
@@ -76,23 +76,11 @@ NoteController noteController = Get.put(NoteController());
         ),
       ),
       body: isExiting!
-          ? Stack(
-              children: [
+          ? 
                 SingleChildScrollView(
                     child: EditableNote(
                   index: index,
-                )),
-                Positioned(
-                  bottom: 20,
-                  right: 40,
-                  child: Text(note!.date.toString(),
-                      style: GoogleFonts.poppins(
-                          fontSize: 15,
-                          fontWeight: FontWeight.w500,
-                          color: NTheme.mainColor)),
-                )
-              ],
-            )
+                ))
           : SingleChildScrollView(child: EditableNote()),
       //floatingActionButton: ,
     );

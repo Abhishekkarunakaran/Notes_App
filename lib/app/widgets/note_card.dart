@@ -34,14 +34,15 @@ class NoteCard extends StatelessWidget {
               offset: Offset(5, 5),
               blurRadius: 10,
               spreadRadius: 2)
-        ]),
+        ],
+        borderRadius: BorderRadius.circular(10)),
         padding: EdgeInsets.all(15),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Spacer(
-              flex: 1,
+              flex: 2,
             ),
             Text(
               note.title.toString(),
@@ -50,11 +51,13 @@ class NoteCard extends StatelessWidget {
               softWrap: false,
               style: NTheme.noteTitleFont,
             ),
+            Spacer(flex: 2,),
             Divider(
               thickness: 1,
               color: Colors.black12,
               endIndent: 60,
             ),
+            Spacer(flex: 2,),
             Text(
               note.body.toString(),
               overflow: TextOverflow.ellipsis,
@@ -63,7 +66,7 @@ class NoteCard extends StatelessWidget {
               style: NTheme.noteBodyFont,
             ),
             Spacer(
-              flex: 3,
+              flex: 4,
             ),
             Text(note.date.toString(),
                 style: GoogleFonts.poppins(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:notes/app/controller/note_controller.dart';
 import 'package:get/get.dart';
 import 'package:notes/app/model/note_model.dart';
@@ -8,6 +9,7 @@ import 'package:notes/app/theme/theme.dart';
 // ignore: must_be_immutable
 class EditableNote extends StatelessWidget {
   int? index;
+  // String? date;
   EditableNote({Key? key, this.index}) : super(key: key);
 
   TextEditingController titleController = TextEditingController();
@@ -15,6 +17,7 @@ class EditableNote extends StatelessWidget {
 
   NoteController noteController = Get.find<NoteController>();
   Color cardColor = NTheme.noteColor;
+  String? date;
   @override
   Widget build(BuildContext context) {
     if (index != null) {
@@ -22,6 +25,7 @@ class EditableNote extends StatelessWidget {
       titleController.text = note!.title!;
       bodyController.text = note.body;
       cardColor = Color(note.color!).withOpacity(1);
+      date = note.date!;
     }
     return Container(
       //height: 500,
@@ -33,16 +37,15 @@ class EditableNote extends StatelessWidget {
             offset: Offset(5, 5),
             blurRadius: 10,
             spreadRadius: 2)
-      ]),
+      ],
+      borderRadius: BorderRadius.circular(10)
+      ),
       padding: EdgeInsets.all(15),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // SizedBox(
-          //   height: 10,
-          // ),
           TextField(
             onChanged: (value) {
               noteController.title = value;
@@ -63,10 +66,6 @@ class EditableNote extends StatelessWidget {
             onChanged: (value) {
               noteController.body = value;
             },
-            // onSubmitted: (text) {
-            //   noteController.getBody(text);
-            //   print(text);
-            // },
             controller: bodyController,
             cursorColor: NTheme.mainColor,
             style: NTheme.noteBodyFont,
@@ -78,6 +77,21 @@ class EditableNote extends StatelessWidget {
                   borderSide: BorderSide.none,
                 )),
           ),
+          SizedBox(
+            height: 5,
+          ),
+          (index != null)
+              ? Padding(
+                padding: const EdgeInsets.only(left: 10),
+                child: Text(date!,
+                    style: GoogleFonts.poppins(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w500,
+                        color: NTheme.mainColor)),
+              )
+              : SizedBox(
+                  height: 12,
+                )
         ],
       ),
     );

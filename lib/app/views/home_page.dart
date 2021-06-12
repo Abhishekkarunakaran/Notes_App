@@ -8,7 +8,7 @@ import 'package:notes/app/model/note_model.dart';
 import 'package:notes/app/theme/theme.dart';
 import 'package:notes/app/views/note_page.dart';
 //import 'package:notes/app/views/note_page.dart';
-import 'package:notes/app/views/widgets/note_card.dart';
+import 'package:notes/app/widgets/note_card.dart';
 
 // ignore: must_be_immutable
 class Home extends StatelessWidget {

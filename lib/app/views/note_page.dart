@@ -11,16 +11,21 @@ import 'package:notes/app/widgets/editable_notecard.dart';
 class NotePage extends StatelessWidget {
   int? index;
   bool? isExiting;
-  
-  NotePage({Key? key, this.isExiting: false, this.index,}) : super(key: key);
+
+  NotePage({
+    Key? key,
+    this.isExiting: false,
+    this.index,
+  }) : super(key: key);
 
   // EditableNote editableNote = EditableNote();
-  
-NoteController noteController = Get.put(NoteController());
+  Note? note;
+  NoteController noteController = Get.put(NoteController());
   @override
   Widget build(BuildContext context) {
-    Color color = NTheme.noteColor;
-    Note? note;
+    final double ht = MediaQuery.of(context).size.height;
+    final double wt = MediaQuery.of(context).size.width;
+
     if (isExiting!) note = noteController.getNote(index!);
     return Scaffold(
       appBar: AppBar(
@@ -37,13 +42,16 @@ NoteController noteController = Get.put(NoteController());
                       Get.back();
                     },
                     child: Container(
-                      padding: EdgeInsets.symmetric(horizontal: 10),
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10)),
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                       child: Text(
                         'DELETE',
                         style: GoogleFonts.poppins(
                             fontSize: 18,
                             fontWeight: FontWeight.w500,
-                            color: NTheme.noteColor),
+                            color: Color(0xFF6595FF)),
                       ),
                     ),
                   )
@@ -54,35 +62,62 @@ NoteController noteController = Get.put(NoteController());
               splashColor: NTheme.buttonColor,
               onTap: () {
                 isExiting!
-                    ? noteController.updateNote(
-                        index!,
-                        color)
-                    :noteController.addNewNote(
-                        color);
+                    ? noteController.updateNote(index!)
+                    : noteController.addNewNote();
                 Get.back();
               },
               child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 10),
+                decoration:
+                    BoxDecoration(borderRadius: BorderRadius.circular(10)),
+                padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                 child: Text(
                   'SAVE',
                   style: GoogleFonts.poppins(
                       fontSize: 18,
                       fontWeight: FontWeight.w500,
-                      color: NTheme.noteColor),
+                      color: Color(0xFF6595FF)),
                 ),
               ),
             )
           ],
         ),
       ),
-      body: isExiting!
-          ? 
-                SingleChildScrollView(
+      body: Container(
+        height: double.infinity,
+        width: double.infinity,
+        child: Stack(
+          fit: StackFit.expand,
+          //clipBehavior: Clip.antiAlias,
+          children: [
+            Positioned(
+              child: Container(
+                  height: 300,
+                  width: 300,
+                  decoration: BoxDecoration(
+                      color: NTheme.buttonColor.withOpacity(.5),
+                      shape: BoxShape.circle)),
+              top: ht / 10,
+              left: -wt / 3,
+            ),
+            Positioned(
+              child: Container(
+                  height: 200,
+                  width: 200,
+                  decoration: BoxDecoration(
+                      color: NTheme.buttonColor.withOpacity(.5),
+                      shape: BoxShape.circle)),
+              top: ht * 0.5,
+              right: -wt / 4,
+            ),
+            isExiting!
+                ? SingleChildScrollView(
                     child: EditableNote(
-                  index: index,
-                ))
-          : SingleChildScrollView(child: EditableNote()),
-      //floatingActionButton: ,
+                    index: index,
+                  ))
+                : SingleChildScrollView(child: EditableNote()),
+          ],
+        ),
+      ),
     );
   }
 }

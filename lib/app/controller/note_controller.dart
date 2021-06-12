@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+// import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hive/hive.dart';
 import 'package:intl/intl.dart';
@@ -22,17 +22,15 @@ class NoteController extends GetxController {
 
   void getBody(String text) => body = text;
 
-  void addNewNote(Color color) {
-    int? colorValue = color.value;
-
-    final newNote = Note(
-      title: title ?? "No title",
-      body: body?? "Description goes here",
-      date: DateFormat('dd MMM, yyyy').format(DateTime.now()).toString(),
-      color: colorValue,
-    );
-
-    notes.add(newNote);
+  void addNewNote() {
+    if (title != null && body != null) {
+      final newNote = Note(
+        title: title ?? "No title",
+        body: body ?? "Description goes here",
+        date: DateFormat('dd MMM, yyyy').format(DateTime.now()).toString(),
+      );
+      notes.add(newNote);
+    }
   }
 
   // void addNewNote(Color color) {
@@ -55,14 +53,12 @@ class NoteController extends GetxController {
   //   notes.add(newNote);
   // }
 
-  void updateNote(int index, Color color) {
-    int? colorValue = color.value;
+  void updateNote(int index) {
     final currentNote = notes.getAt(index);
 
     final editNote = Note(
         title: title ?? currentNote!.title.toString(),
         body: body ?? currentNote!.body.toString(),
-        color: colorValue,
         date: currentNote!.date.toString());
 
     notes.putAt(index, editNote);

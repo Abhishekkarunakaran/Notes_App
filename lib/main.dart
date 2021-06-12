@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'app/app.dart';
@@ -10,6 +11,9 @@ void main() async {
 
   Hive.registerAdapter(NoteAdapter());
   await Hive.openBox<Note>("notes");
-  runApp(MyApp());
+  SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp, DeviceOrientation.portraitDown])
+    .then((_) {
+      runApp(new MyApp());
+    });
   
 }

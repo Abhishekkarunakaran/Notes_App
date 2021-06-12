@@ -13,8 +13,5 @@ class Note extends HiveObject {
   @HiveField(2)
   String? date;
 
-  @HiveField(3)
-  int? color;
-
-  Note({this.title, required this.body, this.color, this.date});
+  Note({this.title, required this.body, this.date});
 }
